@@ -7,7 +7,7 @@ import { NotificstionViewModel } from '../view-models/notification-view-model';
 export class NotificationsController {
   constructor(private sendNotification: SendNotification) {}
 
-  @Post()
+  @Post('create')
   async create(@Body() dto: CreateNotificationsDto) {
     const { recipientId, content, category } = dto;
 

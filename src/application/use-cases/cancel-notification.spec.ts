@@ -10,29 +10,29 @@ describe('Cancel notification', () => {
     const cancelNotification = new CancelNotification(notificationsRepository);
 
     const notification = new Notification({
-        category: 'Casa',
-        content: new Content('Nova solicitação de serviço'),
-        recipientId: 'example-recipient-id',
-    })
+      content: new Content('Nova solicitação de serviço'),
+      category: 'Casa',
+      recipientId: 'example-recipient-id',
+    });
     await notificationsRepository.create(notification);
 
     await cancelNotification.execute({
-      notificationId: notification.id
-    })
+      notificationId: notification.id,
+    });
 
     expect(notificationsRepository.notifications[0].cancelAt).toEqual(
-        expect.any(Date)
+      expect.any(Date),
     );
   });
-  
-  it('shoud not be able to cancel a non existing notification', async () =>{
+
+  it('shoud not be able to cancel a non existing notification', async () => {
     const notificationsRepository = new InMemoryNotificationsRepository();
     const cancelNotification = new CancelNotification(notificationsRepository);
 
     expect(() => {
-        return cancelNotification.execute({
-            notificationId: 'fake-notification-id'
-        })
-    }).rejects.toThrow(NotificationNotFound)
-  })
+      return cancelNotification.execute({
+        notificationId: 'fake-notification-id',
+      });
+    }).rejects.toThrow(NotificationNotFound);
+  });
 });
