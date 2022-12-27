@@ -13,7 +13,7 @@ export class InMemoryNotificationsRepository
     if (!notification) {
       return null;
     }
-    return notification
+    return notification;
   }
 
   async findManyByRecipientId(recipientId: string): Promise<Notification[]> {
